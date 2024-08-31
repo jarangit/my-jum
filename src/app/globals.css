@@ -10,6 +10,19 @@
   border-radius: 50px;
 }
 
-.bg1 {
+.at-bg-white {
+  background-image: linear-gradient(135deg, #fdfcfb 0%, #e2d1c3 100%);
+}
+.at-bg-pink {
   background-image: linear-gradient(45deg, #ee9ca7 0%, #ffdde1 100%);
+}
+.at-bg-blue {
+  background-image: linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%);
+}
+.at-bg-black {
+  background: linear-gradient(to bottom, rgba(255,255,255,0.15) 0%, rgba(0,0,0,0.15) 100%), radial-gradient(at top center, rgba(255,255,255,0.40) 0%, rgba(0,0,0,0.40) 120%) #989898;
+  background-blend-mode: multiply,multiply;
+}
+.at-bg-gold {
+  background-image: linear-gradient(to top, #e6b980 0%, #eacda3 100%);
 }

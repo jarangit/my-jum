@@ -21,6 +21,9 @@ export default function RootLayout({
         <div className="max-w-[1200px] mx-auto">
           <ul className=" flex items-center gap-4 py-3 justify-end">
             <li>
+              <Link href="/">Home</Link>
+            </li>
+            <li>
               <Link href="/admin">Admin</Link>
             </li>
             <li>
