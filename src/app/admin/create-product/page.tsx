@@ -27,24 +27,53 @@ const bgData = [
 ]
 const CreateProductPage = (props: Props) => {
   const [bgSelected, setBgSelected] = useState(bgData[0].value)
+  const [selectedImage, setSelectedImage] = useState<any>(null);
+  const [previewUrl, setPreviewUrl] = useState<any>(null);
+
+  const handleImageChange = (e: any) => {
+    setSelectedImage(e.target.files[0]);
+    const file = e.target.files[0]
+    if (file) {
+      setSelectedImage(file);
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setPreviewUrl(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleUpload = async (e: any) => {
+    e.preventDefault();
+    const formData = new FormData();
+    formData.append('image', selectedImage);
+
+    // const response = await fetch('/api/upload', {
+    //   method: 'POST',
+    //   body: formData,
+    // });
+
+    // const data = await response.json();
+    // alert(data.message);
+  };
   return (
     <div>
       <div className='grid grid-cols-4 gap-6'>
         <div className='col-span-3'>
-          <div className='min-h-[80vh] bg-gray-100 rounded-xl p-6'>
+          <div className='min-h-[80vh] bg-gray-300 rounded-xl p-6'>
             <div className='border border-white w-72 rounded-3xl overflow-hidden mx-auto p-3 bg-white'>
               <div className={`${bgSelected} w-full  h-72 relative rounded-3xl`}>
                 <Image
-                  src={'/assets/images/jum-product.png'}
+                  src={`${previewUrl ?? '/assets/images/jum-product.png'}`}
                   alt='product'
                   fill
                   style={{ objectFit: 'contain' }}
-                  className='my-3'
+                  className='py-3'
                 />
               </div>
-              <div className='flex p-6 justify-between items-center bg-white'>
-                <strong>Jaran</strong>
-                <strong>$79</strong>
+              <div className='flex py-4 px-3 justify-between items-center bg-white'>
+                <strong>{`MEGA SPACE MOLLY`}</strong>
+                <strong>{`#jr`}</strong>
               </div>
             </div>
 
@@ -52,21 +81,22 @@ const CreateProductPage = (props: Props) => {
             <div className='flex gap-3 justify-center mt-3'>
               {bgData.map((item: any, key) => (
                 <div key={key}>
-                  <div className={`${item.value} ${bgSelected == item.value ? 'border-2 border-blue-300':''}  w-6 h-6 rounded-full cursor-pointer`} onClick={() => setBgSelected(item.value)}></div>
+                  <div className={`${item.value} ${bgSelected == item.value ? 'border-2 border-blue-300' : ''}  w-6 h-6 rounded-full cursor-pointer`} onClick={() => setBgSelected(item.value)}></div>
                 </div>
               ))}
             </div>
           </div>
         </div>
         <div className='col-span-1'>
-          <h3 className='text-xl font-bold'>Detail</h3>
+          <h3 className='text-2xl font-bold mb-3'>Detail</h3>
           <form>
-            <div className='flex flex-col gap-6'>
-              <input type="text" placeholder='name' />
-              <input type="text" placeholder='story' />
-              <input type="text" placeholder='price' />
+            <div className='flex flex-col gap-3'>
+              {previewUrl && <img src={previewUrl} alt="Selected" style={{ width: '200px', marginTop: '10px' }} />}
+              <input type="file" onChange={handleImageChange} />
+              <input type="text" placeholder='Name' className='border  border-gray-300 rounded-lg py-2 px-3' />
+              <textarea rows={6} placeholder='Story' className='border border-gray-300  rounded-lg py-2 px-3' ></textarea>
               <div className='flex justify-end'>
-                <button className='ad-button'>Save</button>
+                <button className='ad-button'>Go</button>
               </div>
             </div>
           </form>
