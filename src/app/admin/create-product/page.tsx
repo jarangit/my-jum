@@ -29,6 +29,7 @@ const CreateProductPage = (props: Props) => {
   const [bgSelected, setBgSelected] = useState(bgData[0].value)
   const [selectedImage, setSelectedImage] = useState<any>(null);
   const [previewUrl, setPreviewUrl] = useState<any>(null);
+  const [sizeImage, setSizeImage] = useState(1)
 
   const handleImageChange = (e: any) => {
     setSelectedImage(e.target.files[0]);
@@ -47,14 +48,6 @@ const CreateProductPage = (props: Props) => {
     e.preventDefault();
     const formData = new FormData();
     formData.append('image', selectedImage);
-
-    // const response = await fetch('/api/upload', {
-    //   method: 'POST',
-    //   body: formData,
-    // });
-
-    // const data = await response.json();
-    // alert(data.message);
   };
   return (
     <div>
@@ -68,7 +61,7 @@ const CreateProductPage = (props: Props) => {
                   alt='product'
                   fill
                   style={{ objectFit: 'contain' }}
-                  className='py-3'
+                  className={`${sizeImage ? `scale-[${sizeImage}]` : ''} py-3`}
                 />
               </div>
               <div className='flex py-4 px-3 justify-between items-center bg-white'>
@@ -93,6 +86,11 @@ const CreateProductPage = (props: Props) => {
             <div className='flex flex-col gap-3'>
               {previewUrl && <img src={previewUrl} alt="Selected" style={{ width: '200px', marginTop: '10px' }} />}
               <input type="file" onChange={handleImageChange} />
+              <select onChange={(e: any) => setSizeImage(e.target.value)}>
+                <option value={1}>x1</option>
+                <option value={1.2}>x2</option>
+                <option value={1.3}>x3</option>
+              </select>
               <input type="text" placeholder='Name' className='border  border-gray-300 rounded-lg py-2 px-3' />
               <textarea rows={6} placeholder='Story' className='border border-gray-300  rounded-lg py-2 px-3' ></textarea>
               <div className='flex justify-end'>
