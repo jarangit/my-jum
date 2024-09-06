@@ -18,7 +18,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <div className="max-w-[1200px] mx-auto">
+        <div className="max-w-[1200px] mx-auto px-6">
           <ul className=" flex items-center gap-4 py-3 justify-end">
             <li>
               <Link href="/">Home</Link>

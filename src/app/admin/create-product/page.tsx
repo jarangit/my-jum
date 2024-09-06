@@ -53,7 +53,7 @@ const CreateProductPage = (props: Props) => {
     <div>
       <div className='grid grid-cols-4 gap-6'>
         <div className='col-span-3'>
-          <div className='min-h-[80vh] bg-gray-300 rounded-xl p-6'>
+          <div className='min-h-[80vh] bg-gray-300 rounded-xl p-6  flex justify-center items-center flex-col'>
             <div className='border border-white w-72 rounded-3xl overflow-hidden mx-auto p-3 bg-white'>
               <div className={`${bgSelected} w-full  h-72 relative rounded-3xl`}>
                 <Image
