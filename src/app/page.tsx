@@ -21,10 +21,13 @@ export default function Home() {
 
   const onCreateProduct = async () => {
     const body = {
-      "name": "dFQ1rB5Q",
-      "description": "4gi1pYZ7ewKrhfNsCtMOnaYvt0zPk",
-      "price": "81.40",
-      "stock": 7
+      product: {
+        "name": "dFQ1rB5Q",
+        "description": "4gi1pYZ7ewKrhfNsCtMOnaYvt0zPk",
+        "price": "81.40",
+        "stock": 7,
+      },
+      "userId": 1,
     }
     try {
       await createProduct(body)
@@ -59,7 +62,7 @@ export default function Home() {
       <div>
         <div className="flex justify-between mb-6 items-center">
           <div>Products</div>
-          <button onClick={() => onCreateProduct()}>Crate</button>
+          <button onClick={() => onCreateProduct()}>Create</button>
         </div>
         <div className="grid grid-cols-4 gap-6">
           {products && products.length > 0 && products.map((item: any, key) => (
