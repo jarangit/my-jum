@@ -29,6 +29,9 @@ export default function RootLayout({
             <li>
               <Link href="/admin/create-product">Create Product</Link>
             </li>
+            <li>
+              <Link href={'/admin/login'} >Login</Link>
+            </li>
           </ul>
 
           {/* main app */}

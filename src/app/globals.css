@@ -43,3 +43,11 @@ button {
 .at-bg-gold {
   background-image: linear-gradient(to top, #e6b980 0%, #eacda3 100%);
 }
+
+input {
+  border: 1px solid gainsboro;
+  color: #636363;
+  padding: 4px 8px;
+  outline: none;
+  border-radius: 4px;
+}
