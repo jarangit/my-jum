@@ -1,5 +1,5 @@
 "use client"
-import { login } from '@/app/services/api/userService'
+import { login } from '@/services/api/userService'
 import React, { useState } from 'react'
 
 type Props = {}

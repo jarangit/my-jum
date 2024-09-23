@@ -11,7 +11,7 @@ export const fetchProducts = async () => {
 
 export const createProduct = async (body:any) => {
     try {
-        const response = await axiosInstance.post('/auth/products/create', body); // / คือ baseURL ที่ตั้งไว้
+        const response = await axiosInstance.post('/auth/products/create', {...body}); // / คือ baseURL ที่ตั้งไว้
         return response.data;
     } catch (error) {
         throw new Error('service can not online');

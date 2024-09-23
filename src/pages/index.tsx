@@ -1,8 +1,8 @@
 "use client"
 
+import { fetchProducts, deleteProduct, createProduct } from "@/services/api/productService";
 import Image from "next/image";
 import Link from "next/link";
-import { createProduct, deleteProduct, fetchProducts } from "./services/api/productService";
 import { useEffect, useState } from "react";
 
 export default function Home() {
@@ -27,11 +27,11 @@ export default function Home() {
         "price": "81.40",
         "stock": 7,
       },
-      "userId": 1,
     }
     try {
-      await createProduct(body)
+      await createProduct(body.product)
     } catch (error) {
+      console.log("🚀 ~ onCreateProduct ~ error:", error)
 
     }
     finally {
