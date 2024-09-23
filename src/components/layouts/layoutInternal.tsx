@@ -3,6 +3,7 @@ import { isTokenExp } from '@/utils/checkToken'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React, { useEffect } from 'react'
+import Modal from '../internal/modal'
 
 type Props = {
   children: JSX.Element
@@ -43,6 +44,7 @@ function LayoutInternal({ children }: Props) {
         </ul>
       </div>
       {children}
+      <Modal />
     </div>
   )
 }
