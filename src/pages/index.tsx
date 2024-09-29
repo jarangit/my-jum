@@ -1,6 +1,6 @@
 "use client"
 
-import { fetchProducts, deleteProduct, createProduct } from "@/services/api/productService";
+import { productService } from "@/services/api/productService";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -9,7 +9,7 @@ export default function Home() {
   const [products, setProducts] = useState([])
   const getProduct = async () => {
     try {
-      const res = await fetchProducts()
+      const res = await productService.fetchProducts()
       if (res) {
         setProducts(res)
       }
@@ -29,7 +29,7 @@ export default function Home() {
       },
     }
     try {
-      await createProduct(body.product)
+      await productService.createProduct(body.product)
     } catch (error) {
       console.log("🚀 ~ onCreateProduct ~ error:", error)
 
@@ -41,7 +41,7 @@ export default function Home() {
 
   const onDelete = async (id: string) => {
     try {
-      await deleteProduct(id)
+      await productService.deleteProduct(id)
     } catch (error) {
       console.log("🚀 ~ onDelete ~ error:", error)
 

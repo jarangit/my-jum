@@ -1,11 +1,30 @@
+import { isTokenExp } from '@/utils/checkToken'
 import Link from 'next/link'
-import React from 'react'
+import { useRouter } from 'next/router'
+import React, { useEffect, useState } from 'react'
 
 type Props = {
   children: JSX.Element
 }
 
+
+
 const LayoutExternal = ({ children }: Props) => {
+  const { pathname } = useRouter()
+  const [user, setUser] = useState(false)
+  console.log("🚀 ~ LayoutExternal ~ user:", user)
+  const onLogout = () => {
+    sessionStorage.removeItem("token")
+    window.location.reload()
+  }
+
+  useEffect(() => {
+    const token = sessionStorage.getItem('token')
+    if (token) {
+      setUser(!isTokenExp(token))
+    }
+  }, [pathname, user])
+
   return (
     <div className="max-w-[1200px] mx-auto px-6">
       <ul className=" flex items-center gap-4 py-3 justify-end">
@@ -19,7 +38,11 @@ const LayoutExternal = ({ children }: Props) => {
           <Link href="/creator/create-product">Create Product</Link>
         </li>
         <li>
-          <Link href={'/creator/login'} >Login</Link>
+          {user? (
+            <button onClick={() => onLogout()}>Logout</button>
+          ) : (
+            <Link href={'/login'} >Login</Link>
+          )}
         </li>
       </ul>
 

@@ -6,7 +6,7 @@ import React, { useEffect, useRef, useState } from 'react'
 type Props = {}
 
 const Modal = (props: Props) => {
-  const { isOpenModal } = useAppSelector((store) => store.uiState)
+  const { isOpen, title, desc1, desc2 } = useAppSelector((store) => store.uiState.modalSate)
   const dispatch = useAppDispatch()
   const [showAnimation, setShowAnimation] = useState(false);
   const modalRef = useRef<HTMLDivElement>(null); // Ref สำหรับ Modal
@@ -14,12 +14,17 @@ const Modal = (props: Props) => {
   // Handle click outside modal
   const handleClickOutside = (event: MouseEvent) => {
     if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
-      dispatch(closeCenterModal());
+      dispatch(closeCenterModal({
+        title: '',
+        desc1: '',
+        desc2: '',
+        isOpen: false
+      }));
     }
   };
 
   useEffect(() => {
-    if (isOpenModal) {
+    if (isOpen) {
       setShowAnimation(true);
       document.addEventListener('mousedown', handleClickOutside); // เมื่อเปิด Modal, ฟังการคลิกนอก modal
     } else {
@@ -29,9 +34,9 @@ const Modal = (props: Props) => {
     return () => {
       document.removeEventListener('mousedown', handleClickOutside); // ลบ event เมื่อปิด modal
     };
-  }, [isOpenModal]);
+  }, [isOpen]);
 
-  if (!isOpenModal && !showAnimation) return null;
+  if (!isOpen) return null;
 
 
   return (
@@ -42,16 +47,27 @@ const Modal = (props: Props) => {
         ref={modalRef} // ใช้ Ref นี้ในตัว modal
         className={`bg-white p-6 rounded-lg shadow-lg max-w-md w-full transform transition-all duration-500`}>
         <div className="flex justify-between items-center mb-4">
-          <h2 className="text-xl font-semibold">Modal Title</h2>
-          <button onClick={() => dispatch(closeCenterModal())} className="text-gray-600 hover:text-gray-800">
+          <h2 className="text-xl font-semibold">{title ?? "Modal"}</h2>
+          <div onClick={() => dispatch(closeCenterModal({
+            title: '',
+            desc1: '',
+            desc2: '',
+            isOpen: true
+          }))} className="text-gray-600 hover:text-gray-800 text-2xl cursor-pointer">
             &times;
-          </button>
+          </div>
         </div>
         <div className="modal-content">
-          modal content
+          <div>{desc1}</div>
+          <div>{desc2}</div>
         </div>
-        <div className="flex justify-end mt-4">
-          <button onClick={() => dispatch(closeCenterModal())} className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+        <div className="flex justify-center mt-6">
+          <button onClick={() => dispatch(closeCenterModal({
+            title: '',
+            desc1: '',
+            desc2: '',
+            isOpen: false
+          }))} className="">
             Close
           </button>
         </div>

@@ -1,20 +1,38 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
+
+interface IModalSate {
+  isOpen: boolean
+  title?: string
+  desc1?: string
+  desc2?: string
+}
+
 interface _initialState {
-  isOpenModal: boolean
+  modalSate: IModalSate
 }
 const initialState: _initialState = {
-  isOpenModal: false
+  modalSate: {
+    isOpen: false,
+    desc1: '',
+    desc2: ''
+  }
 }
 export const uiState = createSlice({
   name: 'uiState',
   initialState,
   reducers: {
-    openCenterModal(state: any) {
-      state.isOpenModal = true
+    openCenterModal(state: any, action: PayloadAction<IModalSate>) {
+      state.modalSate = {
+        ...action.payload,
+        isOpen: true
+      }
     },
-    closeCenterModal(state: any) {
-      state.isOpenModal = false
+    closeCenterModal(state: any, action: PayloadAction<IModalSate>) {
+      state.modalSate = {
+        ...action.payload,
+        isOpen: false
+      }
     }
   }
 })

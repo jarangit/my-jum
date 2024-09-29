@@ -13,7 +13,9 @@ button {
   background-color: black;
   color: white;
   height: 42px;
-  width: 98px;
+  min-width: 98px;
+  padding: 0 16px;
+  box-sizing: border-box;
   border-radius: 8px;
 }
 

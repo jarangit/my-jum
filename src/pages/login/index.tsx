@@ -1,5 +1,9 @@
 "use client"
+import Modal from '@/components/internal/modal'
 import { login } from '@/services/api/userService'
+import { useAppDispatch } from '@/store/hook'
+import { openCenterModal } from '@/store/redux/slice/ui-state'
+import { useRouter } from 'next/router'
 import React, { useState } from 'react'
 
 type Props = {}
@@ -9,13 +13,21 @@ const LoginPage = (props: Props) => {
     username: '',
     password: '',
   })
+  const dispatch = useAppDispatch()
+  const { push } = useRouter()
   const onLogin = async (e: any) => {
     e.preventDefault()
     try {
-      const res = login({ ...formData })
-      console.log("🚀 ~ onLogin ~ res:", res)
-    } catch (error) {
-      console.log("🚀 ~ onLogin ~ error:", error)
+      const res = await login({ ...formData })
+      if (res) {
+        push('/creator')
+        return res
+      }
+    } catch (error: any) {
+      dispatch(openCenterModal({
+        isOpen: true,
+        desc1: error.message
+      }))
     }
   }
   return (
@@ -41,6 +53,7 @@ const LoginPage = (props: Props) => {
           </div>
         </form>
       </div>
+      <Modal />
     </div>
   )
 }

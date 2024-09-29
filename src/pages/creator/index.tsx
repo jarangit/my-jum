@@ -10,7 +10,9 @@ const AdminPage = (props: Props) => {
   const dispatch = useAppDispatch()
   const onOpenModal = () => {
     dispatch(
-      openCenterModal()
+      openCenterModal({
+        isOpen: false
+      })
     )
   }
   return (
