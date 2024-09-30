@@ -1,6 +1,6 @@
 import axiosInstance from "./axiosInstance";
 
-export const productService = {
+export const productServiceApi = {
     fetchProducts: async () => {
         try {
             const response = await axiosInstance.get('/auth/products'); // / คือ baseURL ที่ตั้งไว้

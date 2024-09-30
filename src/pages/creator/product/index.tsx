@@ -1,4 +1,4 @@
-import { productService } from '@/services/api/productService'
+import { productServiceApi } from '@/services/api/productService'
 import { useAppSelector } from '@/store/hook'
 import { useRouter } from 'next/router'
 import React, { useCallback, useEffect, useState } from 'react'
@@ -13,7 +13,7 @@ const ProductPage = (props: Props) => {
   // function zone 
   const onGetProducts = useCallback(async (id: number) => {
     try {
-      const res = await productService.getProductByUserId(id)
+      const res = await productServiceApi.getProductByUserId(id)
       if (res) {
         setProducts(res.data)
       }
@@ -24,7 +24,7 @@ const ProductPage = (props: Props) => {
 
   const onDelete = async (id: string) => {
     try {
-      await productService.deleteProduct(id)
+      await productServiceApi.deleteProduct(id)
     } catch (error) {
       console.log("🚀 ~ onDelete ~ error:", error)
 

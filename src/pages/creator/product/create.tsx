@@ -1,4 +1,4 @@
-import { productService } from '@/services/api/productService'
+import { productServiceApi } from '@/services/api/productService'
 import { useAppDispatch } from '@/store/hook'
 import { openCenterModal } from '@/store/redux/slice/ui-state'
 import React from 'react'
@@ -20,7 +20,7 @@ const Create = (props: Props) => {
       product: data
     }
     try {
-      await productService.createProduct(body.product)
+      await productServiceApi.createProduct(body.product)
     } catch (error) {
       dispatch(openCenterModal({
         title: 'something error',
