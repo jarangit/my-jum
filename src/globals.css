@@ -2,6 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --gray: #8b8b8b;
+  --bg-gray: #f6f6f6;
+  --green: #02512b;
+  --blue: #1458c3;
+  --purple: #3102b4;
+  --red: #bd001e;
+  --yellow: #b28000;
+  ---border: #efefef;
+}
 .ad-button {
   background-color: black;
   color: white;
@@ -16,7 +26,7 @@ button {
   min-width: 98px;
   padding: 0 16px;
   box-sizing: border-box;
-  border-radius: 8px;
+  border-radius: 4px;
 }
 
 .at-bg-white {
@@ -46,10 +56,24 @@ button {
   background-image: linear-gradient(to top, #e6b980 0%, #eacda3 100%);
 }
 
-input {
+input,
+select {
   border: 1px solid gainsboro;
   color: #636363;
   padding: 4px 8px;
   outline: none;
   border-radius: 4px;
+}
+
+.chip {
+  background-color: black;
+  color: white;
+  border-radius: 200px;
+  padding: 0 16px;
+  height: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 12px;
+  width: fit-content;
 }

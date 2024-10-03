@@ -62,7 +62,7 @@ function LayoutInternal({ children }: Props) {
       </div>
 
       {/* main */}
-      <div className='grid grid-cols-6 w-full max-w-[1300px] mx-auto min-h-screen gap-4'>
+      <div className='grid grid-cols-6 w-full max-w-[1300px] mx-auto min-h-screen gap-4 px-5'>
         {/* menu */}
         <div className='col-span-1 bg-gray-100 min-h-screen'>
           <div>

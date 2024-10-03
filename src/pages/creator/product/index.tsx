@@ -2,6 +2,7 @@ import { productServiceApi } from '@/services/api/productService'
 import { useAppSelector } from '@/store/hook'
 import { useRouter } from 'next/router'
 import React, { useCallback, useEffect, useState } from 'react'
+import { MdDelete } from 'react-icons/md'
 
 type Props = {}
 
@@ -53,8 +54,11 @@ const ProductPage = (props: Props) => {
       <div className='w-full'>
         {products.map((item: any, key: any) => (
           <div key={key} className='flex justify-between border w-full'>
-            <div>{item.name}</div>
-            <button onClick={() => onDelete(item.id)} >Delete</button>
+            <div>
+              <div>{item.name}</div>
+              <div className='chip'>{item.category?.name}</div>
+            </div>
+            <MdDelete className='text-red' onClick={() => onDelete(item.id)} />
           </div>
         ))}
       </div>

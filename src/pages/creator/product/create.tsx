@@ -1,7 +1,8 @@
+import { categoryServiceApi } from '@/services/api/categoryServiceApi'
 import { productServiceApi } from '@/services/api/productService'
-import { useAppDispatch } from '@/store/hook'
+import { useAppDispatch, useAppSelector } from '@/store/hook'
 import { openCenterModal } from '@/store/redux/slice/ui-state'
-import React from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 type Props = {}
@@ -9,11 +10,15 @@ interface IFormInput {
   name: string,
   description: string,
   price: number,
-  stock: number
+  stock: number,
+  categoryId: number,
 }
 
 const Create = (props: Props) => {
+  const user = useAppSelector(state => state.userState.user)
   const { register, handleSubmit } = useForm<IFormInput>()
+  const [categories, setCategories] = useState([])
+  console.log("🚀 ~ Create ~ categories:", categories)
   const dispatch = useAppDispatch()
   const onCreateProduct = async (data: IFormInput) => {
     const body = {
@@ -34,6 +39,24 @@ const Create = (props: Props) => {
       }))
     }
   }
+  // function zone 
+  const onGetProducts = useCallback(async (id: number) => {
+    try {
+      const res = await categoryServiceApi.getCategoryByUserId(id)
+      if (res) {
+        setCategories(res.data)
+      }
+    } catch (error) {
+
+    }
+  }, [])
+
+  useEffect(() => {
+    if (user.id) {
+      onGetProducts(user.id)
+    }
+  }, [user])
+
   return (
     <div>
       <div>Create Product</div>
@@ -44,6 +67,13 @@ const Create = (props: Props) => {
           <input type="text" placeholder='description' {...register('description')} />
           <input type="number" placeholder='price' {...register('price')} />
           <input type="number" placeholder='stock' {...register('stock')} />
+          <select {...register('categoryId')}>
+            {categories.map((item: any, key) => (
+              <option key={key} value={item.id}>
+                <div>{item.name}</div>
+              </option>
+            ))}
+          </select>
           <button type="submit" >Create</button>
         </div>
       </form>

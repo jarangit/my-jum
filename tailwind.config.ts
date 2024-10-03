@@ -42,6 +42,24 @@ const config: Config = {
         slideDown: 'slideDown 0.1s ease-in-out',
         scaleIn: 'scaleIn 0.1s ease-in-out',
       },
+      borderColor: {
+        DEFAULT: '#efefef', // Set your custom default border color
+      },
+      divideColor: {
+        DEFAULT: '#efefef', // Set your custom default border color
+      }
+    },
+    colors: {
+      transparent: 'transparent',
+      'white': '#ffffff',
+      'purple': '#3102b4',
+      'green': '#02512b',
+      'blue': '#1458c3',
+      'red': '#bd001e',
+      'yellow': '#b28000',
+      'bg-gray': '#f6f6f6',
+      'gray': '#8b8b8b',
+      'border': '#efefef',
     },
   },
   plugins: [],

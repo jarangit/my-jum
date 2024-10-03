@@ -59,7 +59,7 @@ const Modal = (props: Props) => {
         </div>
         <div className="modal-content">
           <div>{desc1}</div>
-          <div>{desc2}</div>
+          <div className='text-red'>{desc2}</div>
         </div>
         <div className="flex justify-center mt-6">
           <button onClick={() => dispatch(closeCenterModal({
