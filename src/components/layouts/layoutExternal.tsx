@@ -12,7 +12,6 @@ type Props = {
 const LayoutExternal = ({ children }: Props) => {
   const { pathname } = useRouter()
   const [user, setUser] = useState(false)
-  console.log("🚀 ~ LayoutExternal ~ user:", user)
   const onLogout = () => {
     sessionStorage.removeItem("token")
     window.location.reload()

@@ -66,15 +66,17 @@ export default function Home() {
         <div className="grid grid-cols-4 gap-6">
           {products && products.length > 0 && products.map((item: any, key) => (
             <div key={key} className="bg-bg-gray p-3 rounded-lg">
-              <div className="flex justify-between">
-                <div>{item.name}</div>
-                <div>{item.price}</div>
-              </div>
-              <div className="text-gray">
-                <Link href={`/profile/${item?.user?.id}`}>
-                  {item?.user?.username}
-                </Link>
-              </div>
+              <Link href={`/product/${item.id}`}>
+                <div className="flex justify-between">
+                  <div>{item.name}</div>
+                  <div>{item.price}</div>
+                </div>
+                <div className="text-gray">
+                  <Link href={`/profile/${item?.user?.id}`}>
+                    {item?.user?.username}
+                  </Link>
+                </div>
+              </Link>
             </div>
           ))}
         </div>
