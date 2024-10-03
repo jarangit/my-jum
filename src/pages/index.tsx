@@ -62,16 +62,19 @@ export default function Home() {
       <div>
         <div className="flex justify-between mb-6 items-center">
           <div>Products</div>
-          <button onClick={() => onCreateProduct()}>Create</button>
         </div>
         <div className="grid grid-cols-4 gap-6">
           {products && products.length > 0 && products.map((item: any, key) => (
-            <div key={key} className="bg-gray-200 p-3 rounded-lg">
+            <div key={key} className="bg-bg-gray p-3 rounded-lg">
               <div className="flex justify-between">
                 <div>{item.name}</div>
                 <div>{item.price}</div>
               </div>
-              <button onClick={() => onDelete(item.id)} >Delete</button>
+              <div className="text-gray">
+                <Link href={`/profile/${item?.user?.id}`}>
+                  {item?.user?.username}
+                </Link>
+              </div>
             </div>
           ))}
         </div>
