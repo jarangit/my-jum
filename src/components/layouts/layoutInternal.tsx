@@ -7,6 +7,7 @@ import Modal from '../internal/modal'
 import { jwtDecode } from 'jwt-decode'
 import { useAppDispatch, useAppSelector } from '@/store/hook'
 import { initUser } from '@/store/redux/slice/userSlice'
+import Head from 'next/head'
 
 type Props = {
   children: JSX.Element
@@ -40,6 +41,15 @@ function LayoutInternal({ children }: Props) {
 
   return (
     <div>
+      <Head>
+        <title>MCS:Creator</title>
+        <meta
+          name="description"
+          content="A brand all about coding passion and success"
+        />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="icon" href="/favicon.png" />
+      </Head>
       <div className='flex justify-between items-center bg-gray-200 p-3'>
         <div className='text-xl font-bold'>CREATOR</div>
         <ul className=" flex items-center gap-4  justify-end">
@@ -74,7 +84,7 @@ function LayoutInternal({ children }: Props) {
                 <Link href="/creator/product">Product</Link>
               </li>
               <li>
-                <Link href="/creator/category">Category</Link>
+                <Link href="/creator/collection">Collection</Link>
               </li>
               <li>
                 <Link href={'/creator/profile'} >Profile</Link>

@@ -1,4 +1,4 @@
-import { categoryServiceApi } from '@/services/api/categoryServiceApi'
+import { collectionServiceApi } from '@/services/api/collectionServiceApi'
 import { productServiceApi } from '@/services/api/productService'
 import { useAppDispatch, useAppSelector } from '@/store/hook'
 import { openCenterModal } from '@/store/redux/slice/ui-state'
@@ -16,7 +16,7 @@ const CategoryPage = (props: Props) => {
   // function zone 
   const onGetProducts = useCallback(async (id: number) => {
     try {
-      const res = await categoryServiceApi.getCategoryByUserId(id)
+      const res = await collectionServiceApi.getCollectionByUserId(id)
       if (res) {
         setCategories(res.data)
       }
@@ -27,7 +27,7 @@ const CategoryPage = (props: Props) => {
 
   const onDelete = async (id: number) => {
     try {
-      await categoryServiceApi.deleteCategory(id)
+      await collectionServiceApi.deleteCollection(id)
     } catch (error: any) {
       console.log("🚀 ~ onDelete ~ error:", error)
       dispatch(openCenterModal({
@@ -52,7 +52,7 @@ const CategoryPage = (props: Props) => {
   return (
     <div>
       <div className='flex justify-between'>
-        <div>Category</div>
+        <div>Collection</div>
         <button onClick={() => push(`${pathname}/create`)}>Create</button>
       </div>
 

@@ -51,12 +51,12 @@ const ProductPage = (props: Props) => {
       </div>
 
       {/* product list */}
-      <div className='w-full'>
+      <div className='w-full flex flex-col gap-6'>
         {products.map((item: any, key: any) => (
-          <div key={key} className='flex justify-between border w-full'>
+          <div key={key} className='flex justify-between border w-full p-3 shadow-md'>
             <div>
               <div>{item.name}</div>
-              <div className='chip'>{item.category?.name}</div>
+              <div className={`${item.collection?.name ? "chip" : "hidden"}`}>{item.collection?.name}</div>
             </div>
             <MdDelete className='text-red' onClick={() => onDelete(item.id)} />
           </div>

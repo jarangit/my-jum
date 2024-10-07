@@ -1,4 +1,4 @@
-import { categoryServiceApi } from '@/services/api/categoryServiceApi'
+import { collectionServiceApi } from '@/services/api/collectionServiceApi'
 import { productServiceApi } from '@/services/api/productService'
 import { useAppDispatch } from '@/store/hook'
 import { openCenterModal } from '@/store/redux/slice/ui-state'
@@ -18,7 +18,7 @@ const Create = (props: Props) => {
       product: data
     }
     try {
-      await categoryServiceApi.createCategory(body.product)
+      await collectionServiceApi.createCollection(body.product)
     } catch (error) {
       dispatch(openCenterModal({
         title: 'something error',

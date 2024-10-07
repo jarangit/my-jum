@@ -1,4 +1,4 @@
-import { categoryServiceApi } from '@/services/api/categoryServiceApi'
+import { collectionServiceApi } from '@/services/api/collectionServiceApi'
 import { productServiceApi } from '@/services/api/productService'
 import { useAppDispatch, useAppSelector } from '@/store/hook'
 import { openCenterModal } from '@/store/redux/slice/ui-state'
@@ -11,7 +11,7 @@ interface IFormInput {
   description: string,
   price: number,
   stock: number,
-  categoryId: number,
+  collectionId: number,
 }
 
 const Create = (props: Props) => {
@@ -42,7 +42,7 @@ const Create = (props: Props) => {
   // function zone 
   const onGetProducts = useCallback(async (id: number) => {
     try {
-      const res = await categoryServiceApi.getCategoryByUserId(id)
+      const res = await collectionServiceApi.getCollectionByUserId(id)
       if (res) {
         setCategories(res.data)
       }
@@ -67,7 +67,7 @@ const Create = (props: Props) => {
           <input type="text" placeholder='description' {...register('description')} />
           <input type="number" placeholder='price' {...register('price')} />
           <input type="number" placeholder='stock' {...register('stock')} />
-          <select {...register('categoryId')}>
+          <select {...register('collectionId')}>
             {categories.map((item: any, key) => (
               <option key={key} value={item.id}>
                 <div>{item.name}</div>
