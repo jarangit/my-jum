@@ -2,7 +2,8 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 interface IUser {
   id: number | null,
-  username: string
+  username?: string
+  profileImage?: string
 }
 interface _initialState {
   user: IUser

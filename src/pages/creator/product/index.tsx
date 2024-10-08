@@ -1,5 +1,7 @@
+import CardProduct from '@/components/product/card-product'
 import { productServiceApi } from '@/services/api/productService'
 import { useAppSelector } from '@/store/hook'
+import Image from 'next/image'
 import { useRouter } from 'next/router'
 import React, { useCallback, useEffect, useState } from 'react'
 import { MdDelete } from 'react-icons/md'
@@ -51,14 +53,21 @@ const ProductPage = (props: Props) => {
       </div>
 
       {/* product list */}
-      <div className='w-full flex flex-col gap-6'>
+      <div className='grid grid-cols-4 gap-6'>
         {products.map((item: any, key: any) => (
-          <div key={key} className='flex justify-between border w-full p-3 shadow-md'>
-            <div>
+          <div key={key} className='col-span-1' >
+            <CardProduct data={item}/>
+            {/* <div>
+              <Image
+                src={item.thumbnail}
+                alt='thumbnail'
+                width={100}
+                height={100}
+              />
               <div>{item.name}</div>
               <div className={`${item.collection?.name ? "chip" : "hidden"}`}>{item.collection?.name}</div>
             </div>
-            <MdDelete className='text-red' onClick={() => onDelete(item.id)} />
+            <MdDelete className='text-red' onClick={() => onDelete(item.id)} /> */}
           </div>
         ))}
       </div>

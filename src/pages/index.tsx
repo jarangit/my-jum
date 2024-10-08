@@ -1,16 +1,30 @@
 "use client"
 
+import CardProduct from "@/components/product/card-product";
+import { likeService } from "@/services/api/likeService";
 import { productServiceApi } from "@/services/api/productService";
+import { useAppDispatch, useAppSelector } from "@/store/hook";
+import { openCenterModal } from "@/store/redux/slice/ui-state";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
+import { FaHeart, FaRegHeart } from "react-icons/fa";
 
 export default function Home() {
+  const user = useAppSelector(state => state.userState.user)
+  const dispatch = useAppDispatch()
   const [products, setProducts] = useState([])
   const getProduct = async () => {
     try {
       const res = await productServiceApi.fetchProducts()
       if (res) {
+        // check user if liked 
+        if (user.id) {
+          res.forEach((item: any) => {
+            const isLiked = item.likes.find((like: any) => like.user.id === user.id)
+            item.isLiked = isLiked ? true : false
+          })
+        }
         setProducts(res)
       }
     } catch (error) {
@@ -19,42 +33,33 @@ export default function Home() {
     }
   }
 
-  const onCreateProduct = async () => {
-    const body = {
-      product: {
-        "name": "dFQ1rB5Q",
-        "description": "4gi1pYZ7ewKrhfNsCtMOnaYvt0zPk",
-        "price": "81.40",
-        "stock": 7,
-      },
+  const onLike = useCallback(async (id: number) => {
+    if (!products) return
+    if (!user.id) {
+      dispatch(openCenterModal({
+        title: 'Please login to like', desc1: 'Please login to like',
+        isOpen: true
+      }))
+      return
     }
+    const foundProduct: any = products.find((item: any) => item.id === id)
+    foundProduct.isLiked = !foundProduct.isLiked
+    setProducts([...products])
     try {
-      await productServiceApi.createProduct(body.product)
+      await likeService.toggleLikes(id)
     } catch (error) {
-      console.log("🚀 ~ onCreateProduct ~ error:", error)
-
     }
-    finally {
-      getProduct()
-    }
-  }
-
-  const onDelete = async (id: string) => {
-    try {
-      await productServiceApi.deleteProduct(id)
-    } catch (error) {
-      console.log("🚀 ~ onDelete ~ error:", error)
-
-    }
-    finally {
-      getProduct()
-    }
-  }
+  }, [products])
 
   useEffect(() => {
     getProduct()
     return () => { }
-  }, [])
+  }, [user])
+
+  useEffect(() => {
+    console.log('render')
+  }, [onLike, products])
+
 
   return (
     <div>
@@ -65,8 +70,9 @@ export default function Home() {
         </div>
         <div className="grid grid-cols-4 gap-6">
           {products && products.length > 0 && products.map((item: any, key) => (
-            <div key={key} className="bg-bg-gray p-3 rounded-lg">
-              <Link href={`/product/${item.id}`}>
+            <div key={key}>
+              <CardProduct data={item} />
+              {/* <Link href={`/product/${item.id}`}>
                 <div className="flex justify-between">
                   <div>{item.name}</div>
                   <div>{item.price}</div>
@@ -76,7 +82,13 @@ export default function Home() {
                     {item?.user?.username}
                   </Link>
                 </div>
+
               </Link>
+              {/* like */}
+              {/* <div className="flex gap-1 items-center justify-end mt-auto" >
+                <FaHeart className={`${item.isLiked ? "text-red" : ""} cursor-pointer`} onClick={() => onLike(item.id)} />
+                <div className={`${item.totalLikes ? '' : 'hidden'}`}> {item.totalLikes}</div>
+              </div> */}
             </div>
           ))}
         </div>

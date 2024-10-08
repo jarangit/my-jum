@@ -1,6 +1,6 @@
 "use client"
 import Modal from '@/components/internal/modal'
-import { login } from '@/services/api/userService'
+import { userService } from '@/services/api/userService'
 import { useAppDispatch } from '@/store/hook'
 import { openCenterModal } from '@/store/redux/slice/ui-state'
 import { useRouter } from 'next/router'
@@ -18,7 +18,7 @@ const LoginPage = (props: Props) => {
   const onLogin = async (e: any) => {
     e.preventDefault()
     try {
-      const res = await login({ ...formData })
+      const res = await userService.login({ ...formData })
       if (res) {
         push('/creator')
         return res

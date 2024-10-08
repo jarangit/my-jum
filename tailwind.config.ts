@@ -60,6 +60,7 @@ const config: Config = {
       'bg-gray': '#f6f6f6',
       'gray': '#8b8b8b',
       'border': '#efefef',
+      'black': '#000',
     },
   },
   plugins: [],
