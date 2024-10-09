@@ -1,15 +1,26 @@
 import Image from 'next/image'
 import React from 'react'
-import { FaUserCircle } from 'react-icons/fa'
+import { FaHeart, FaRegHeart, FaUserCircle } from 'react-icons/fa'
+import Row from '../ui-system/ui-center/row'
 
 type Props = {
   data: any
+  onLike?: (id: number) => void
 }
 
-const CardProduct = ({ data }: Props) => {
+const CardProduct = ({ data, onLike }: Props) => {
+
+  const handleLike = (id: number) => {
+    if (typeof onLike === 'function') {
+      onLike(id); // เรียกฟังก์ชันถ้ามีการส่งเข้ามา
+    } else {
+      console.warn('onLike function is not provided'); // แจ้งเตือนถ้าไม่มีการส่ง onLike มา
+    }
+  };
+
   if (!data) return null
   return (
-    <div className='flex flex-col gap-2 '>
+    <div className='flex flex-col gap-2 max-w-[250px] mx-auto'>
       <div className='relative w-full max-w-[250px] h-[250px] min-h-[50px] max-h-[250px] rounded-xl overflow-hidden'>
         <Image
           src={data.thumbnail}
@@ -23,20 +34,29 @@ const CardProduct = ({ data }: Props) => {
       </div>
 
       {/* price */}
-      <div className='flex gap-4 items-center'>
-        <div className='text-sm'>
-          <div className='text-gray'>Price</div>
-          <div className=' font-bold'>
-            {data.price}
+      <Row className=' justify-between !items-end'>
+        <div className='flex gap-4 '>
+          <div className='text-sm'>
+            <div className='text-gray'>Price</div>
+            <div className=' font-bold'>
+              {data.price}
+            </div>
+          </div>
+          <div className='text-sm'>
+            <div className='text-gray'>Stock</div>
+            <div className='font-bold'>
+              {data.stock}
+            </div>
           </div>
         </div>
-        <div className='text-sm'>
-          <div className='text-gray'>Stock</div>
-          <div className='font-bold'>
-            {data.stock}
-          </div>
-        </div>
-      </div>
+
+        <Row className='items-center'>
+          {data.isLiked ? <FaHeart className='text-pink cursor-pointer' onClick={() => handleLike(data.id)} /> : <FaRegHeart className='cursor-pointer' onClick={() => handleLike(data.id)} />}
+          {data.totalLikes ? (
+            <div className='text-xs'>{data.totalLikes}</div>
+          ) : ''}
+        </Row>
+      </Row>
 
       <div className='flex items-center gap-2 mt-3'>
         <div>

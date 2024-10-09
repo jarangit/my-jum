@@ -14,6 +14,7 @@ import { IoMdLogOut } from 'react-icons/io'
 import { CgProfile } from 'react-icons/cg'
 import { HiOutlineCollection } from 'react-icons/hi'
 import { IoSettingsOutline } from 'react-icons/io5'
+import { MdLogout } from 'react-icons/md'
 
 type Props = {
   children: JSX.Element
@@ -96,7 +97,7 @@ const LayoutExternal = ({ children }: Props) => {
         </li>
         {user && (
           <li className='relative'>
-            <div className='flex items-center gap-2 bg-black rounded-full text-white p-1 pl-1'>
+            <div className='flex min-w-32 px-3 items-center gap-2 bg-black rounded-full text-white p-1 pl-1'>
               <div>
                 {userState?.profileImage ? (
                   <Image
@@ -104,27 +105,31 @@ const LayoutExternal = ({ children }: Props) => {
                     alt='profile'
                     width={100}
                     height={100}
-                    className='rounded-full w-[30px] h-[30px] object-cover border'
+                    className='rounded-full w-[30px] h-[30px] object-cover '
                   />
                 ) : <FaUserCircle size={25} />
                 }
               </div>
-              <div className='cursor-pointer'>{userState?.username}</div>
-              <IoMdLogOut size={25} onClick={() => onLogout()} className='cursor-pointer ml-3' />
+              <div className='cursor-pointer text-sm'>{userState?.username}</div>
+              {/* <MdLogout size={25} onClick={() => onLogout()} className='cursor-pointer ml-3' /> */}
             </div>
-            <div className='border  rounded-xl shadow-lg absolute z-50 bg-white  right-0 mt-3 w-[228px] overflow-hidden'>
+            <div className='border rounded-xl shadow-lg absolute z-50 bg-white  right-0 mt-3 w-[228px] overflow-hidden'>
               <div className='flex flex-col divide-y items-center w-full'>
                 <div className='p-3 w-full cursor-pointer flex gap-2 items-center hover:bg-black transition-all hover:text-white'>
                   <CgProfile size={20} />
                   <div>Profile</div>
                 </div>
-                <div className='p-3 w-full cursor-pointer flex gap-2 items-center hover:bg-black transition-all hover:text-white'>
+                <Link href={'/creator'} className='p-3 w-full cursor-pointer flex gap-2 items-center hover:bg-black transition-all hover:text-white'>
                   <HiOutlineCollection size={20} />
                   <div>Collector</div>
-                </div>
+                </Link>
                 <div className='p-3 w-full cursor-pointer flex gap-2 items-center hover:bg-black transition-all hover:text-white'>
                   <IoSettingsOutline size={20} />
                   <div>Setting</div>
+                </div>
+                <div onClick={() => onLogout()} className='p-3 w-full cursor-pointer flex gap-2 items-center hover:bg-black transition-all hover:text-white'>
+                  <MdLogout size={20} />
+                  <div>Logout</div>
                 </div>
               </div>
             </div>

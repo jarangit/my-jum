@@ -56,6 +56,7 @@ const config: Config = {
       'green': '#02512b',
       'blue': '#1458c3',
       'red': '#bd001e',
+      'pink': '#ff2e5f',
       'yellow': '#b28000',
       'bg-gray': '#f6f6f6',
       'gray': '#8b8b8b',

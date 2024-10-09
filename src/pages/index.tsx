@@ -68,10 +68,12 @@ export default function Home() {
         <div className="flex justify-between mb-6 items-center">
           <div>Products</div>
         </div>
-        <div className="grid grid-cols-4 gap-6">
+        <div className="grid  grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {products && products.length > 0 && products.map((item: any, key) => (
             <div key={key}>
-              <CardProduct data={item} />
+              <CardProduct data={item}
+                onLike={(id: number) => onLike(id)}
+              />
               {/* <Link href={`/product/${item.id}`}>
                 <div className="flex justify-between">
                   <div>{item.name}</div>
