@@ -1,10 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit'
 import uiStateReducer from './redux/slice/ui-state'
 import userStateReducer from './redux/slice/userSlice'
+import modalProductStateReducer from './redux/slice/modal-product'
 export const store = configureStore({
   reducer: {
     uiState: uiStateReducer,
-    userState: userStateReducer
+    userState: userStateReducer,
+    modalProductState: modalProductStateReducer
   }
 })
 // Infer the `RootState` and `AppDispatch` types from the store itself

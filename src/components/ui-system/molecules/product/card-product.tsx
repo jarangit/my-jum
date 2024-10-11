@@ -1,7 +1,10 @@
 import Image from 'next/image'
 import React from 'react'
 import { FaHeart, FaRegHeart, FaUserCircle } from 'react-icons/fa'
-import Row from '../ui-system/ui-center/row'
+import Row from '../../ui-center/row'
+import Link from 'next/link'
+import { useAppDispatch } from '@/store/hook'
+import { _toggleModalProduct } from '@/store/redux/slice/modal-product'
 
 type Props = {
   data: any
@@ -9,7 +12,7 @@ type Props = {
 }
 
 const CardProduct = ({ data, onLike }: Props) => {
-
+  const dispatch = useAppDispatch()
   const handleLike = (id: number) => {
     if (typeof onLike === 'function') {
       onLike(id); // เรียกฟังก์ชันถ้ามีการส่งเข้ามา
@@ -18,20 +21,31 @@ const CardProduct = ({ data, onLike }: Props) => {
     }
   };
 
+  const onOpenModal = (product: any) => {
+    dispatch(_toggleModalProduct({
+      product: product,
+      isOpen: true
+    }
+    ))
+  }
+
   if (!data) return null
+
   return (
     <div className='flex flex-col gap-2 max-w-[250px] mx-auto'>
-      <div className='relative w-full max-w-[250px] h-[250px] min-h-[50px] max-h-[250px] rounded-xl overflow-hidden'>
+      <div
+        onClick={() => onOpenModal(data)}
+        className='relative w-full max-w-[250px] h-[250px] min-h-[50px] max-h-[250px] rounded-xl overflow-hidden'>
         <Image
           src={data.thumbnail}
           alt='thumbnail'
           fill
-          className='object-cover'
+          className='object-cover cursor-pointer'
         />
       </div>
-      <div className='text-lg font-bold'>
+      <Link href={`/product/${data.id}`} className='text-lg font-bold cursor-pointer hover:underline'>
         {data.name}
-      </div>
+      </Link>
 
       {/* price */}
       <Row className=' justify-between !items-end'>
@@ -58,7 +72,8 @@ const CardProduct = ({ data, onLike }: Props) => {
         </Row>
       </Row>
 
-      <div className='flex items-center gap-2 mt-3'>
+      {/* user */}
+      <Link href={`/profile/${data.user?.id}`} className='flex items-center gap-2 mt-3'>
         <div>
           {data.user?.profileImage ? (
             <Image
@@ -72,7 +87,7 @@ const CardProduct = ({ data, onLike }: Props) => {
           }
         </div>
         <div>{data.user?.username}</div>
-      </div>
+      </Link>
     </div>
   )
 }

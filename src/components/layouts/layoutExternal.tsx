@@ -15,6 +15,7 @@ import { CgProfile } from 'react-icons/cg'
 import { HiOutlineCollection } from 'react-icons/hi'
 import { IoSettingsOutline } from 'react-icons/io5'
 import { MdLogout } from 'react-icons/md'
+import ModalContent from '../ui-system/molecules/modals/products/modal-content'
 
 type Props = {
   children: JSX.Element
@@ -146,7 +147,10 @@ const LayoutExternal = ({ children }: Props) => {
 
       {/* main app */}
       {children}
+
+      {/* modal zone */}
       <Modal />
+      <ModalContent />
     </div>
   )
 }

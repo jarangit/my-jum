@@ -1,4 +1,4 @@
-import CardProduct from '@/components/product/card-product'
+import CardProduct from '@/components/ui-system/molecules/product/card-product'
 import { productServiceApi } from '@/services/api/productService'
 import { useAppSelector } from '@/store/hook'
 import Image from 'next/image'
@@ -56,7 +56,7 @@ const ProductPage = (props: Props) => {
       <div className='grid grid-cols-4 gap-6'>
         {products.map((item: any, key: any) => (
           <div key={key} className='col-span-1' >
-            <CardProduct data={item}/>
+            <CardProduct data={item} />
             {/* <div>
               <Image
                 src={item.thumbnail}
