@@ -73,7 +73,7 @@ const LayoutExternal = ({ children }: Props) => {
   }, [pathname, user])
 
   return (
-    <div className="max-w-[1200px] mx-auto px-6">
+    <div className="max-w-[1200px] mx-auto px-6 pb-24">
       <Head>
         <title>MCS</title>
         <meta
