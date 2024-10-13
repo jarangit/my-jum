@@ -73,21 +73,23 @@ const CardProduct = ({ data, onLike }: Props) => {
       </Row>
 
       {/* user */}
-      <Link href={`/profile/${data.user?.id}`} className='flex items-center gap-2 mt-3'>
-        <div>
-          {data.user?.profileImage ? (
-            <Image
-              src={data.user?.profileImage}
-              alt='profile'
-              width={100}
-              height={100}
-              className='rounded-full w-[30px] h-[30px] object-cover'
-            />
-          ) : <FaUserCircle size={25} />
-          }
-        </div>
-        <div>{data.user?.username}</div>
-      </Link>
+      {data.user ? (
+        <Link href={`/profile/${data.user?.id}`} className='flex items-center gap-2 mt-3'>
+          <div>
+            {data.user?.profileImage ? (
+              <Image
+                src={data.user?.profileImage}
+                alt='profile'
+                width={100}
+                height={100}
+                className='rounded-full w-[30px] h-[30px] object-cover'
+              />
+            ) : <FaUserCircle size={25} />
+            }
+          </div>
+          <div>{data.user?.username}</div>
+        </Link>
+      ) : ''}
     </div>
   )
 }
