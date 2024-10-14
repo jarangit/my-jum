@@ -16,6 +16,7 @@ import { HiOutlineCollection } from 'react-icons/hi'
 import { IoSettingsOutline } from 'react-icons/io5'
 import { MdLogout } from 'react-icons/md'
 import ModalContent from '../ui-system/molecules/modals/products/modal-content'
+import MenuPopup from '../ui-system/molecules/popups/menu-popup'
 
 type Props = {
   children: JSX.Element
@@ -28,6 +29,7 @@ const LayoutExternal = ({ children }: Props) => {
   const { pathname, push } = useRouter()
   const dispatch = useAppDispatch()
   const [user, setUser] = useState(false)
+  const [openPopupMenu, setOpenPopupMenu] = useState(false)
   const onLogout = () => {
     sessionStorage.removeItem("token")
     window.location.reload()
@@ -98,7 +100,7 @@ const LayoutExternal = ({ children }: Props) => {
         </li>
         {user && (
           <li className='relative'>
-            <div className='flex min-w-32 px-3 items-center gap-2 bg-black rounded-full text-white p-1 pl-1'>
+            <div className='flex min-w-32 px-3 items-center gap-2 bg-black rounded-full text-white p-1 pl-1 cursor-pointer' onClick={() => setOpenPopupMenu(!openPopupMenu)}>
               <div>
                 {userState?.profileImage ? (
                   <Image
@@ -114,26 +116,7 @@ const LayoutExternal = ({ children }: Props) => {
               <div className='cursor-pointer text-sm'>{userState?.username}</div>
               {/* <MdLogout size={25} onClick={() => onLogout()} className='cursor-pointer ml-3' /> */}
             </div>
-            <div className='border rounded-xl shadow-lg absolute z-50 bg-white  right-0 mt-3 w-[228px] overflow-hidden'>
-              <div className='flex flex-col divide-y items-center w-full'>
-                <div className='p-3 w-full cursor-pointer flex gap-2 items-center hover:bg-black transition-all hover:text-white'>
-                  <CgProfile size={20} />
-                  <div>Profile</div>
-                </div>
-                <Link href={'/creator'} className='p-3 w-full cursor-pointer flex gap-2 items-center hover:bg-black transition-all hover:text-white'>
-                  <HiOutlineCollection size={20} />
-                  <div>Collector</div>
-                </Link>
-                <div className='p-3 w-full cursor-pointer flex gap-2 items-center hover:bg-black transition-all hover:text-white'>
-                  <IoSettingsOutline size={20} />
-                  <div>Setting</div>
-                </div>
-                <div onClick={() => onLogout()} className='p-3 w-full cursor-pointer flex gap-2 items-center hover:bg-black transition-all hover:text-white'>
-                  <MdLogout size={20} />
-                  <div>Logout</div>
-                </div>
-              </div>
-            </div>
+            <MenuPopup _isOpen={openPopupMenu} _onClose = {() => setOpenPopupMenu(false)} />
           </li>
         )}
         <li>
