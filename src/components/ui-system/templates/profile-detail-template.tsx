@@ -100,18 +100,22 @@ const ProfileDetailTemplate = ({ userData, userProduct }: Props) => {
           </Column>
 
           {/* product */}
+
+          {/* filter collection */}
           <div className='col-span-9'>
-            <ul className='flex gap-6  pb-3 items-center border-b mb-6'>
-              <li onClick={() => {
-                setProducts(userProduct)
-                setCurrentCollection(undefined)
-              }}
-                className={`${!currentCollection?.id ? 'bg-black text-white px-6 rounded-full py-1' : 'text-gray'} font-semibold cursor-pointer`}
-              >All</li>
-              {userData.collections && userData.collections.length ? userData.collections.map((col: any, index: any) => (
-                <li className={`${currentCollection?.id === col.id ? 'bg-black text-white px-4 rounded-full py-1' : 'text-gray'} cursor-pointer font-semibold`} key={index} onClick={() => onSelectedCollection(col)}>{col.name}</li>
-              )) : ''}
-            </ul>
+            {userData.collections && userData.collections.length ? (
+              <ul className='flex gap-6  pb-3 items-center border-b mb-6'>
+                <li onClick={() => {
+                  setProducts(userProduct)
+                  setCurrentCollection(undefined)
+                }}
+                  className={`${!currentCollection?.id ? 'bg-black text-white px-6 rounded-full py-1' : 'text-gray'} font-semibold cursor-pointer`}
+                >All</li>
+                {userData.collections && userData.collections.length ? userData.collections.map((col: any, index: any) => (
+                  <li className={`${currentCollection?.id === col.id ? 'bg-black text-white px-4 rounded-full py-1' : 'text-gray'} cursor-pointer font-semibold`} key={index} onClick={() => onSelectedCollection(col)}>{col.name}</li>
+                )) : ''}
+              </ul>
+            ) : ''}
 
             {/* list */}
             <Grid className='grid-cols-3 w-full gap-3'>
