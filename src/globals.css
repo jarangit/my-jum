@@ -75,11 +75,10 @@ select {
   background-color: black;
   color: white;
   border-radius: 200px;
-  padding: 0 16px;
-  height: 24px;
+  padding: 4px 16px;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 12px;
   width: fit-content;
+  cursor: pointer;
 }

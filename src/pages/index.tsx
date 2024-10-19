@@ -2,8 +2,10 @@
 
 import ModalContent from "@/components/ui-system/molecules/modals/products/modal-content";
 import CardProduct from "@/components/ui-system/molecules/product/card-product";
+import Row from "@/components/ui-system/ui-center/row";
 import { likeService } from "@/services/api/likeService";
 import { productServiceApi } from "@/services/api/productService";
+import { StCategoryService } from "@/services/api/system/stCategory";
 import { useAppDispatch, useAppSelector } from "@/store/hook";
 import { openCenterModal } from "@/store/redux/slice/ui-state";
 import Image from "next/image";
@@ -33,6 +35,7 @@ export default function Home() {
   const user = useAppSelector(state => state.userState.user)
   const dispatch = useAppDispatch()
   const [products, setProducts] = useState([])
+  const [stCategoryList, setStCategoryList] = useState<any[]>([])
   const getProduct = async () => {
     try {
       const res = await productServiceApi.fetchProducts()
@@ -48,6 +51,18 @@ export default function Home() {
       }
     } catch (error) {
       console.log("🚀 ~ getProduct ~ error:", error)
+
+    }
+  }
+
+  const onGetStCategory = async () => {
+    try {
+      const res = await StCategoryService.findAll()
+      if (res) {
+        setStCategoryList(res.data)
+      }
+      console.log("🚀 ~ onGetStCategory ~ res", res)
+    } catch (error) {
 
     }
   }
@@ -72,6 +87,7 @@ export default function Home() {
 
   useEffect(() => {
     getProduct()
+    onGetStCategory()
     return () => { }
   }, [user])
 
@@ -82,7 +98,10 @@ export default function Home() {
 
   return (
     <div>
-
+      {/* category */}
+      <Row className="gap-1 flex-wrap">
+        {stCategoryList && stCategoryList.length > 0 && stCategoryList.map((item, key) => ((<div className="chip" key={key}>{item.name}</div>)))}
+      </Row>
       <div>
         <div className="flex justify-between mb-6 items-center">
           <div>Products</div>
