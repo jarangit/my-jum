@@ -1,5 +1,6 @@
 import { collectionServiceApi } from '@/services/api/collectionServiceApi'
 import { productServiceApi } from '@/services/api/productService'
+import { StCategoryService } from '@/services/api/system/stCategory'
 import { useAppDispatch, useAppSelector } from '@/store/hook'
 import { openCenterModal } from '@/store/redux/slice/ui-state'
 import React, { useCallback, useEffect, useState } from 'react'
@@ -12,13 +13,15 @@ interface IFormInput {
   price: number,
   stock: number,
   collectionId: number,
+  stCategoryId: number,
 }
+
 
 const Create = (props: Props) => {
   const user = useAppSelector(state => state.userState.user)
   const { register, handleSubmit } = useForm<IFormInput>()
   const [categories, setCategories] = useState([])
-  console.log("🚀 ~ Create ~ categories:", categories)
+  const [STCategories, setSTCategories] = useState([])
   const dispatch = useAppDispatch()
   const onCreateProduct = async (data: IFormInput) => {
     const body = {
@@ -51,9 +54,21 @@ const Create = (props: Props) => {
     }
   }, [])
 
+  const onGetSTCategory = useCallback(async () => {
+    try {
+      const { data }: any = await StCategoryService.findAll()
+      if (data) {
+        setSTCategories(data)
+      }
+    } catch (error) {
+      console.log("🚀 ~ onGetSTCategory ~ error:", error)
+    }
+  }, [])
+
   useEffect(() => {
     if (user.id) {
       onGetProducts(user.id)
+      onGetSTCategory()
     }
   }, [user])
 
@@ -69,6 +84,13 @@ const Create = (props: Props) => {
           <input type="number" placeholder='stock' {...register('stock')} />
           <select {...register('collectionId')}>
             {categories.map((item: any, key) => (
+              <option key={key} value={item.id}>
+                <div>{item.name}</div>
+              </option>
+            ))}
+          </select>
+          <select {...register('stCategoryId')}>
+            {STCategories.map((item: any, key) => (
               <option key={key} value={item.id}>
                 <div>{item.name}</div>
               </option>
