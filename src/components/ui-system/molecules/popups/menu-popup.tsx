@@ -8,13 +8,22 @@ import { CgProfile } from 'react-icons/cg'
 import { HiOutlineCollection } from 'react-icons/hi'
 import { IoSettingsOutline } from 'react-icons/io5'
 import { MdLogout } from 'react-icons/md'
+import Row from '../../ui-center/row'
 
 type Props = {
   _isOpen: boolean
   _onClose: () => void
+  _listMenu: IListMenu[]
 }
 
-const MenuPopup = ({ _isOpen, _onClose }: Props) => {
+interface IListMenu {
+  label: string
+  icon?: JSX.Element
+  onClick: () => void
+}
+
+
+const MenuPopup = ({ _isOpen, _onClose, _listMenu }: Props) => {
 
   const userState = useAppSelector(state => state.userState.user)
   const popupRef = React.useRef(null)
@@ -41,22 +50,12 @@ const MenuPopup = ({ _isOpen, _onClose }: Props) => {
       {_isOpen ? (
         <div ref={popupRef} className=' rounded-xl shadow-lg absolute z-50 bg-white  right-0 mt-3 w-[228px] overflow-hidden'>
           <div className='flex flex-col divide-y items-center w-full'>
-            <Link href={`/profile/${userState.id}`} className='p-3 w-full cursor-pointer flex gap-2 items-center hover:bg-black transition-all hover:text-white'>
-              <CgProfile size={20} />
-              <div>Profile</div>
-            </Link>
-            <Link href={'/creator'} className='p-3 w-full cursor-pointer flex gap-2 items-center hover:bg-black transition-all hover:text-white'>
-              <HiOutlineCollection size={20} />
-              <div>Collector</div>
-            </Link>
-            <div className='p-3 w-full cursor-pointer flex gap-2 items-center hover:bg-black transition-all hover:text-white'>
-              <IoSettingsOutline size={20} />
-              <div>Setting</div>
-            </div>
-            <div onClick={() => onLogout()} className='p-3 w-full cursor-pointer flex gap-2 items-center hover:bg-black transition-all hover:text-white'>
-              <MdLogout size={20} />
-              <div>Logout</div>
-            </div>
+            {_listMenu.map((item, index) => (
+              <Row key={index} className='p-3 w-full cursor-pointer  gap-2  hover:bg-black transition-all hover:text-white' onClick={() => item.onClick()}>
+                {item.icon ?? ''}
+                <div>{item.label}</div>
+              </Row>
+            ))}
           </div>
         </div>
       ) : ''}

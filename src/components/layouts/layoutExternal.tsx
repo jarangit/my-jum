@@ -22,7 +22,28 @@ type Props = {
   children: JSX.Element
 }
 
-
+const list = [
+  {
+    label: 'Profile',
+    icon: <CgProfile size={20} />,
+    onClick: () => console.log('profile')
+  },
+  {
+    label: 'Collector',
+    icon: <HiOutlineCollection size={20} />,
+    onClick: () => console.log('collector')
+  },
+  {
+    label: 'Setting',
+    icon: <IoSettingsOutline size={20} />,
+    onClick: () => console.log('setting')
+  },
+  {
+    label: 'Logout',
+    icon: <MdLogout size={20} />,
+    onClick: () => console.log('logout')
+  }
+]
 
 const LayoutExternal = ({ children }: Props) => {
   const userState = useAppSelector(state => state.userState.user)
@@ -116,7 +137,7 @@ const LayoutExternal = ({ children }: Props) => {
               <div className='cursor-pointer text-sm'>{userState?.username}</div>
               {/* <MdLogout size={25} onClick={() => onLogout()} className='cursor-pointer ml-3' /> */}
             </div>
-            <MenuPopup _isOpen={openPopupMenu} _onClose = {() => setOpenPopupMenu(false)} />
+            <MenuPopup _isOpen={openPopupMenu} _onClose={() => setOpenPopupMenu(false)} _listMenu={list} />
           </li>
         )}
         <li>

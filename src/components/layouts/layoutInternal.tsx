@@ -40,7 +40,7 @@ function LayoutInternal({ children }: Props) {
   }, [pathname, userState])
 
   return (
-    <div>
+    <div className='bg-[#f1f2f4]'>
       <Head>
         <title>MCS:Creator</title>
         <meta

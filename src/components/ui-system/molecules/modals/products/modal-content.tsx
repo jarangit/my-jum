@@ -51,21 +51,18 @@ const ModalContent = () => {
               <Column className='gap-3'>
                 <Row className='justify-between'>
                   <div className='text-xl font-bold'>{productDataState.name}</div>
-                  <Row className='items-center'>
-                    {productDataState.isLiked ?
-                      <FaHeart className='text-pink cursor-pointer' size={20} /> :
-                      <FaRegHeart className='cursor-pointer' size={20} />
-                    }
-                    {productDataState.totalLikes ? (
-                      <div className='text-xs'>{productDataState.totalLikes}</div>
-                    ) : ''}
-                  </Row>
+
                 </Row>
                 <div className='text-gray-500 indent-8'>{productDataState.description}</div>
-                {/* <Column className='justify-between'>
-                  <div className='text-gray-500'><span className='font-bold'>Price:</span> {productDataState.price}</div>
-                  <div className='text-gray-500'><span className='font-bold'>Stock:</span> {productDataState.stock}</div>
-                </Column> */}
+                <Row className='items-center'>
+                  {productDataState.isLiked ?
+                    <FaHeart className='text-pink cursor-pointer' size={20} /> :
+                    <FaRegHeart className='cursor-pointer' size={20} />
+                  }
+                  {productDataState.totalLikes ? (
+                    <div className='text-xs'>{productDataState.totalLikes}</div>
+                  ) : ''}
+                </Row>
               </Column>
 
               <Row className='justify-between'>

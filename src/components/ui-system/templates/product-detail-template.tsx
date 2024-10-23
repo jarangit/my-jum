@@ -38,21 +38,18 @@ const ProductDetailTemplate = ({ product, ownerProduct }: Props) => {
                 <Column className='gap-3'>
                   <Row className='justify-between'>
                     <div className='text-xl font-bold'>{product.name}</div>
-                    <Row className='items-center'>
-                      {product.isLiked ?
-                        <FaHeart className='text-pink cursor-pointer' size={20} /> :
-                        <FaRegHeart className='cursor-pointer' size={20} />
-                      }
-                      {product.totalLikes ? (
-                        <div className='text-xs'>{product.totalLikes}</div>
-                      ) : ''}
-                    </Row>
+
                   </Row>
                   <div className='text-gray-500 indent-8'>{product.description}</div>
-                  {/* <Column className='justify-between'>
-                <div className='text-gray-500'><span className='font-bold'>Price:</span> {product.price}</div>
-                <div className='text-gray-500'><span className='font-bold'>Stock:</span> {product.stock}</div>
-              </Column> */}
+                  <Row className='items-center'>
+                    {product.isLiked ?
+                      <FaHeart className='text-pink cursor-pointer' size={20} /> :
+                      <FaRegHeart className='cursor-pointer' size={20} />
+                    }
+                    {product.totalLikes ? (
+                      <div className='text-xs'>{product.totalLikes}</div>
+                    ) : ''}
+                  </Row>
                 </Column>
 
                 <Row className='justify-between'>
@@ -83,7 +80,7 @@ const ProductDetailTemplate = ({ product, ownerProduct }: Props) => {
           </Grid>
 
           {/* user product */}
-          <Column  className=' gap-6 pt-12'>
+          <Column className=' gap-6 pt-12'>
             <Row className='justify-between'>
               {/* user */}
               <Link href={`/profile/${product.user?.id}`} className='flex items-center gap-2'>
