@@ -1,29 +1,21 @@
-import { useAppDispatch, useAppSelector } from '@/store/hook'
-import { userState, initUser } from '@/store/redux/slice/userSlice'
+import MenuPopup from '@/components/ui-system/molecules/popups/menu-popup'
+import Row from '@/components/ui-system/ui-center/row'
+import { userService } from '@/services/api/userService'
+import { useAppSelector, useAppDispatch } from '@/store/hook'
+import { initUser } from '@/store/redux/slice/userSlice'
 import { isTokenExp } from '@/utils/checkToken'
 import { jwtDecode } from 'jwt-decode'
-import Head from 'next/head'
+import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React, { useCallback, useEffect, useState } from 'react'
-import Modal from '../internal/modal'
-import Image from 'next/image'
-import { FaUserCircle } from 'react-icons/fa'
-import { userService } from '@/services/api/userService'
-import { IoMdLogOut } from 'react-icons/io'
 import { CgProfile } from 'react-icons/cg'
+import { FaUserCircle } from 'react-icons/fa'
 import { HiOutlineCollection } from 'react-icons/hi'
 import { IoSettingsOutline } from 'react-icons/io5'
 import { MdLogout } from 'react-icons/md'
-import ModalContent from '../ui-system/molecules/modals/products/modal-content'
-import MenuPopup from '../ui-system/molecules/popups/menu-popup'
-import TopMenuEX from './menus/topMenuEX'
-import SideMenuEx from './menus/sideMenuEx'
 
-type Props = {
-  children: JSX.Element
-}
-
+type Props = {}
 const list = [
   {
     label: 'Profile',
@@ -46,8 +38,7 @@ const list = [
     onClick: () => console.log('logout')
   }
 ]
-
-const LayoutExternal = ({ children }: Props) => {
+const TopMenuEX = (props: Props) => {
   const userState = useAppSelector(state => state.userState.user)
   const { pathname, push } = useRouter()
   const dispatch = useAppDispatch()
@@ -98,40 +89,56 @@ const LayoutExternal = ({ children }: Props) => {
   }, [pathname, user])
 
   return (
-    <>
-      <div className=' fixed w-full z-50'>
-        <TopMenuEX />
-      </div>
-      <div className="max-w-[1600px] mx-auto px-6 pb-24 ">
-        <Head>
-          <title>MCS</title>
-          <meta
-            name="description"
-            content="A brand all about coding passion and success"
-          />
-          <meta name="viewport" content="width=device-width, initial-scale=1" />
-          <link rel="icon" href="/favicon.png" />
-        </Head>
-
-        {/* main app */}
-        <div className='grid grid-cols-6 h-screen gap-6 pt-24 '>
-          <div className="sticky top-24 h-fit bg-bg-gray  p-4 col-span-1">
-            <SideMenuEx />
-          </div>
-          <div className='col-span-4'>
-            {children}
-          </div>
-          <div className="sticky top-24 h-fit bg-bg-gray  p-4 col-span-1">
-            <SideMenuEx />
-          </div>
+    <div>
+      <Row className='items-center justify-between w-full bg-white p-6 border-b'>
+        <div className='text-3xl font-bold'>
+          <Link href="/">MCS</Link>
         </div>
-
-        {/* modal zone */}
-        <Modal />
-        <ModalContent />
-      </div>
-    </>
+        <ul className=" flex items-center gap-4 justify-end ">
+          <li>
+            <Link href="/">Home</Link>
+          </li>
+          <li>
+            <Link href="/">Collections</Link>
+          </li>
+          <li>
+            <Link href="/">Community</Link>
+          </li>
+          <li>
+            <Link href="/creator">Admin</Link>
+          </li>
+          {user && (
+            <li className='relative'>
+              <div className='flex min-w-32 px-3 items-center gap-2 bg-black rounded-full text-white p-1 pl-1 cursor-pointer' onClick={() => setOpenPopupMenu(!openPopupMenu)}>
+                <div>
+                  {userState?.profileImage ? (
+                    <Image
+                      src={userState?.profileImage}
+                      alt='profile'
+                      width={100}
+                      height={100}
+                      className='rounded-full w-[30px] h-[30px] object-cover '
+                    />
+                  ) : <FaUserCircle size={25} />
+                  }
+                </div>
+                <div className='cursor-pointer text-sm'>{userState?.username}</div>
+                {/* <MdLogout size={25} onClick={() => onLogout()} className='cursor-pointer ml-3' /> */}
+              </div>
+              <MenuPopup _isOpen={openPopupMenu} _onClose={() => setOpenPopupMenu(false)} _listMenu={list} />
+            </li>
+          )}
+          <li>
+            {user ? (
+              <></>
+            ) : (
+              <Link href={'/login'} >Login</Link>
+            )}
+          </li>
+        </ul>
+      </Row>
+    </div>
   )
 }
 
-export default LayoutExternal
+export default TopMenuEX

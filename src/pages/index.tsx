@@ -104,7 +104,6 @@ export default function Home() {
       </Row>
       <div>
         <div className="flex justify-between mb-6 items-center">
-          <div>Products</div>
         </div>
         <div className="grid  grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {products && products.length > 0 && products.map((item: any, key) => (
