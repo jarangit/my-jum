@@ -1,7 +1,11 @@
 "use client"
 
+import SideMenuEx from "@/components/layouts/menus/sideMenuEx";
 import ModalContent from "@/components/ui-system/molecules/modals/products/modal-content";
+import PostCard from "@/components/ui-system/molecules/product/card-post";
 import CardProduct from "@/components/ui-system/molecules/product/card-product";
+import RecentlyViewedProductList from "@/components/ui-system/organisms/recently-viewed-product-list";
+import Column from "@/components/ui-system/ui-center/column";
 import Row from "@/components/ui-system/ui-center/row";
 import { likeService } from "@/services/api/likeService";
 import { productServiceApi } from "@/services/api/productService";
@@ -61,7 +65,6 @@ export default function Home() {
       if (res) {
         setStCategoryList(res.data)
       }
-      console.log("🚀 ~ onGetStCategory ~ res", res)
     } catch (error) {
 
     }
@@ -97,40 +100,21 @@ export default function Home() {
 
 
   return (
-    <div>
-      {/* category */}
-      <Row className="gap-1 flex-wrap">
-        {stCategoryList && stCategoryList.length > 0 && stCategoryList.map((item, key) => ((<div className="chip" key={key}>{item.name}</div>)))}
-      </Row>
-      <div>
-        <div className="flex justify-between mb-6 items-center">
-        </div>
-        <div className="grid  grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {products && products.length > 0 && products.map((item: any, key) => (
-            <div key={key}>
-              <CardProduct data={item}
-                onLike={(id: number) => onLike(id)}
-              />
-              {/* <Link href={`/product/${item.id}`}>
-                <div className="flex justify-between">
-                  <div>{item.name}</div>
-                  <div>{item.price}</div>
-                </div>
-                <div className="text-gray">
-                  <Link href={`/profile/${item?.user?.id}`}>
-                    {item?.user?.username}
-                  </Link>
-                </div>
-
-              </Link>
-              {/* like */}
-              {/* <div className="flex gap-1 items-center justify-end mt-auto" >
-                <FaHeart className={`${item.isLiked ? "text-red" : ""} cursor-pointer`} onClick={() => onLike(item.id)} />
-                <div className={`${item.totalLikes ? '' : 'hidden'}`}> {item.totalLikes}</div>
-              </div> */}
-            </div>
-          ))}
-        </div>
+    <div className="grid grid-cols-12 gap-6">
+      <div className="sticky top-24  bg-bg-gray h-fit  p-4 col-span-3">
+        <SideMenuEx />
+      </div>
+      <Column className="gap-4 col-span-6 p-6 bg-bg-gray rounded-xl">
+        {products && products.length > 0 && products.map((item: any, key) => (
+          <div key={key}>
+            <PostCard
+              _data={item}
+            />
+          </div>
+        ))}
+      </Column>
+      <div className="sticky top-24  h-fit  p-4 col-span-3">
+        <RecentlyViewedProductList />
       </div>
     </div>
   );

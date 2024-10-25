@@ -6,7 +6,7 @@ import { useAppDispatch, useAppSelector } from '@/store/hook'
 import { _toggleModalProduct } from '@/store/redux/slice/modal-product'
 import Image from 'next/image'
 import Link from 'next/link'
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { FaHeart, FaRegHeart, FaUserCircle } from 'react-icons/fa'
 import { IoIosCloseCircle } from 'react-icons/io'
 
@@ -26,6 +26,33 @@ const ModalContent = () => {
       isOpen: false
     }))
   }
+
+  const onSaveRecentlyViewedProduct = (productId: number) => {
+    if (!productId) return
+
+    const currentProductId = onGetRecentlyViewedProduct()
+    const isLimit = currentProductId.length > 5
+    let viewedProduct = JSON.parse(localStorage.getItem('recentlyViewedProduct') || '[]')
+
+    if (!viewedProduct.includes(productId)) {
+      if (isLimit) {
+        viewedProduct.shift()
+      }
+      viewedProduct.push(productId)
+    }
+
+    localStorage.setItem('recentlyViewedProduct', JSON.stringify(viewedProduct))
+  }
+
+  const onGetRecentlyViewedProduct = () => {
+    return JSON.parse(localStorage.getItem('recentlyViewedProduct') || '[]')
+  }
+
+
+  useEffect(() => {
+    onSaveRecentlyViewedProduct(productDataState.id)
+  }, [productDataState])
+
   if (!productDataState) return null
   return (
     <ModalLayout>

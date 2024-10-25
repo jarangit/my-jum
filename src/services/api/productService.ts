@@ -12,6 +12,9 @@ export const productServiceApi = {
     getProductByUserId: async (id: number) => {
         return await axiosInstance.get(`/auth/products/user/${id}`)
     },
+    findOne: async (id: string) => {
+        return await axiosInstance.get(`/products/${id}`)
+    },
     createProduct: async (body: any) => {
         try {
             const response = await axiosInstance.post('/auth/products/create', { ...body }); // / คือ baseURL ที่ตั้งไว้

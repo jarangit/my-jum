@@ -114,16 +114,9 @@ const LayoutExternal = ({ children }: Props) => {
         </Head>
 
         {/* main app */}
-        <div className='grid grid-cols-6 h-screen gap-6 pt-24 '>
-          <div className="sticky top-24 h-fit bg-bg-gray  p-4 col-span-1">
-            <SideMenuEx />
-          </div>
-          <div className='col-span-4'>
-            {children}
-          </div>
-          <div className="sticky top-24 h-fit bg-bg-gray  p-4 col-span-1">
-            <SideMenuEx />
-          </div>
+
+        <div className='pt-24'>
+          {children}
         </div>
 
         {/* modal zone */}

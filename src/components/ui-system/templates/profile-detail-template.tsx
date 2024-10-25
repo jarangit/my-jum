@@ -91,6 +91,7 @@ const ProfileDetailTemplate = ({ userData, userProduct }: Props) => {
         <div className='absolute -bottom-12 left-4 z-50'>
           <ProfileImage
             profileImageUrl={userData.profileImage}
+            size='xl'
           />
         </div>
       </div>

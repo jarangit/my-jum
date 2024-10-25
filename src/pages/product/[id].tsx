@@ -4,7 +4,7 @@ import { useRouter } from 'next/router'
 import React, { useCallback, useEffect, useState } from 'react'
 import { userService } from '@/services/api/public/userService'
 import ProductDetailTemplate from '@/components/ui-system/templates/product-detail-template'
-import { productService } from '@/services/api/public/productService'
+import { productServicePublicApi } from '@/services/api/public/productService'
 import Cookies from 'js-cookie';
 
 type Props = {}
@@ -16,7 +16,7 @@ const ProductPage = (props: Props) => {
 
   const onGetProduct = useCallback(async (id: number) => {
     try {
-      const res = await productService.getProductById(id)
+      const res = await productServicePublicApi.getProductById(id)
       if (res && res.data) {
         setProduct(res.data)
         if (res.data.user) {
@@ -29,7 +29,7 @@ const ProductPage = (props: Props) => {
 
   const onGetProductByOwner = useCallback(async (id: number) => {
     try {
-      const res: any = await productService.getProductByUserId(id)
+      const res: any = await productServicePublicApi.getProductByUserId(id)
       if (res && res.data) {
         setOwnerProduct(res.data)
       }
@@ -44,7 +44,7 @@ const ProductPage = (props: Props) => {
     const hasViewed = Cookies.get(viewedProductKey);
     console.log("🚀 ~ onViewedProduct ~ hasViewed:", hasViewed)
     if (!hasViewed) {
-      await productService.incrementViewCount(productId)
+      await productServicePublicApi.incrementViewCount(productId)
       Cookies.set(viewedProductKey, 'true', { expires: 1 });
     }
 

@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { FaHeart, FaRegHeart, FaUserCircle } from 'react-icons/fa'
 import Row from '../../ui-center/row'
 import Link from 'next/link'
@@ -30,7 +30,6 @@ const CardProduct = ({ data, onLike }: Props) => {
   }
 
   if (!data) return null
-
   return (
     <div className='flex flex-col gap-2 max-w-[250px] mx-auto'>
       <div

@@ -4,7 +4,7 @@ import { useRouter } from 'next/router'
 import React, { useCallback, useEffect, useState } from 'react'
 import { userService } from '@/services/api/public/userService'
 import ProfileDetailTemplate from '@/components/ui-system/templates/profile-detail-template'
-import { productService } from '@/services/api/public/productService'
+import { productServicePublicApi } from '@/services/api/public/productService'
 type Props = {}
 
 const UserProfile = (props: Props) => {
@@ -25,7 +25,7 @@ const UserProfile = (props: Props) => {
 
   const onGetProductByOwner = useCallback(async (id: number) => {
     try {
-      const res: any = await productService.getProductByUserId(id)
+      const res: any = await productServicePublicApi.getProductByUserId(id)
       if (res && res.data) {
         setProducts(res.data)
       }
