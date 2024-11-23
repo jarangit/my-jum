@@ -46,7 +46,7 @@ const RecentlyViewedProductList = (props: Props) => {
           <h1 className='text-lg font-medium mb-3'>Recently Viewed</h1>
           <Column gap={3}>
             {products?.map((product) => (
-              <React.Fragment key={product.id}>
+              <React.Fragment key={product?.id}>
                 <ListProductCardItem data={product} />
               </React.Fragment>
             ))}
